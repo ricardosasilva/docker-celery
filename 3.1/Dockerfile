@@ -13,6 +13,9 @@ RUN addgroup celery
 # Create celery user
 RUN adduser --disabled-password --home /data/app --no-create-home --system -q --ingroup celery celery
 
+RUN mkdir /var/log/celery/ -p
+RUN chown -R celery:celery /var/log/celery/
+
 ADD supervisor/conf.d/ /etc/supervisor/conf.d/
 ADD run.sh /usr/local/bin/run.sh
 
