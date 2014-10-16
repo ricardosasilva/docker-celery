@@ -7,8 +7,11 @@ RUN rm -rf /var/lib/apt/lists/*
 # install uWSGI
 RUN pip install "celery>=3.1,<3.2"
 
+# Create celery group
+RUN addgroup celery
+
 # Create celery user
-RUN adduser --disabled-password --home /data/app --no-create-home --system -q celery
+RUN adduser --disabled-password --home /data/app --no-create-home --system -q --ingroup celery celery
 
 ADD supervisor/conf.d/ /etc/supervisor/conf.d/
 ADD run.sh /usr/local/bin/run.sh
